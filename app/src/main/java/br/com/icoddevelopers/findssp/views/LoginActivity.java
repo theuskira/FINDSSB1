@@ -1,4 +1,4 @@
-package br.com.icoddevelopers.findssp;
+package br.com.icoddevelopers.findssp.views;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import br.com.icoddevelopers.findssp.R;
 
 public class LoginActivity extends AppCompatActivity {
 

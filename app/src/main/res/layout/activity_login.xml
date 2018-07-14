@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/findssb"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".views.LoginActivity"
+    android:id="@+id/telaLogin">
 
     <TextView
         android:layout_width="wrap_content"

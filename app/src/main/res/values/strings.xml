@@ -3,4 +3,11 @@
     <string name="usuario">Usuario</string>
     <string name="senha">Senha</string>
     <string name="login">Entrar</string>
+    <string name="pesgunta1">Localizar Supermercado</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="conta">Conta</string>
+    <string name="supermercado">Supermercado</string>
+    <string name="produto">Produto</string>
+    <string name="prateleira">Prateleira</string>
+    <string name="corredor">Corredor</string>
 </resources>
