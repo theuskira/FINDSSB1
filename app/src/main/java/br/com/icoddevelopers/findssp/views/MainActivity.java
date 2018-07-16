@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void enviarSupermercado(View view){
-        EditText nomeSupermercado = (EditText) findViewById(R.id.supermercado);
+        EditText nomeSupermercado = (EditText) findViewById(R.id.pesquisa_supermercado);
 
         Intent intent = new Intent(this, ProdutosActivity.class);
 

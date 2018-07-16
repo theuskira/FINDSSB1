@@ -16,7 +16,7 @@
         android:text="@string/pesgunta1" />
 
     <EditText
-        android:id="@+id/supermercado"
+        android:id="@+id/pesquisa_supermercado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
