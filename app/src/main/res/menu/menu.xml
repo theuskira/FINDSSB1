@@ -6,4 +6,8 @@
         android:id="@+id/botaoContaMenu"
         android:title="@string/conta"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/botaoContaEmpresaMenu"
+        android:title="@string/empresa"
+        app:showAsAction="never" />
 </menu>

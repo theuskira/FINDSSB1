@@ -1,3 +1,4 @@
+/*
 package br.com.icoddevelopers.findssp.repository;
 
 import android.content.Context;
@@ -97,3 +98,4 @@ public class GuestDataBase extends SQLiteOpenHelper{
         // sqLiteDatabase.execSQL(SQL_CREATE_TABLE_GUEST);
     }
 }
+*/

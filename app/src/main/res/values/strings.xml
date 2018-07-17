@@ -10,4 +10,5 @@
     <string name="produto">Produto</string>
     <string name="prateleira">Prateleira</string>
     <string name="corredor">Corredor</string>
+    <string name="empresa">Empresa</string>
 </resources>

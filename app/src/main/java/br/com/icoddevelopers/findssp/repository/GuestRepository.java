@@ -1,3 +1,4 @@
+/*
 package br.com.icoddevelopers.findssp.repository;
 
 import android.content.Context;
@@ -20,3 +21,4 @@ public class GuestRepository {
     }
 
 }
+*/

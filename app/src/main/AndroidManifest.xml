@@ -19,7 +19,9 @@
         <activity android:name=".views.MainActivity" />
         <activity android:name=".views.SplashActivity2" />
         <activity android:name=".views.LoginActivity" />
-        <activity android:name=".views.ProdutosActivity"></activity>
+        <activity android:name=".views.ProdutosActivity" />
+        <activity android:name=".cadasto.CadastroActivity" />
+        <activity android:name=".cadasto.CadastroEmpresaActivity"></activity>
     </application>
 
 </manifest>
