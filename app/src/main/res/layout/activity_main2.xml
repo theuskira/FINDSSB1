@@ -16,7 +16,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:editable="false"
         android:gravity="center"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
@@ -29,13 +28,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="60dp"
+        android:padding="16dp"
+        android:paddingTop="16dp">
 
         <Button
             android:id="@+id/btnPesquisar"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/search_528px" />
 
@@ -44,19 +44,24 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/edit_property_528px"
-            android:editable="false" />
+            android:background="@drawable/edit_property_528px" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnEco"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal|center"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:background="@drawable/leaf_528px" />
+        android:padding="16dp"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/btnEco"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal|center"
+            android:background="@drawable/leaf_528px" />
+
+    </LinearLayout>
 
 </LinearLayout>
