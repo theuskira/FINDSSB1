@@ -32,8 +32,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         db = new BancoDado(this);
 
         Intent intent = getIntent();
-        String supermercado = intent.getStringExtra("Supermercado");
-        Toast.makeText(Main2Activity.this, supermercado, Toast.LENGTH_LONG).show();
+        final String supermercado = intent.getStringExtra("Supermercado");
 
         try {
             db.list_Supermercado(supermercado, mViewHolder.txtSupermercado);
@@ -41,11 +40,11 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         }catch (Exception e){
             Toast.makeText(Main2Activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
-
         this.mViewHolder.btnPesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Main2Activity.this, ProdutosActivity.class);
+                intent.putExtra("Supermercado", supermercado);
                 startActivity(intent);
             }
         });
@@ -54,6 +53,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Main2Activity.this, ListActivity.class);
+                intent.putExtra("Supermercado", supermercado);
                 startActivity(intent);
             }
         });
@@ -61,13 +61,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         this.mViewHolder.btnEco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    db.list_all_products(mViewHolder.txtSupermercado);
-
-                    db.close();
-                }catch (Exception e){
-                    Toast.makeText(Main2Activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                Toast.makeText(Main2Activity.this, "Função Ainda Não Terminada!", Toast.LENGTH_LONG).show();
             }
         });
 

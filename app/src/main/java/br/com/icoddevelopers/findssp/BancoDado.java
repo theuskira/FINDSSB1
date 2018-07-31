@@ -82,23 +82,32 @@ public class BancoDado extends SQLiteOpenHelper{
 
     }*/
 
-    public void list_all_products(TextView textView){
-        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM " + TABELA_PRODUTO, null);
-        textView.setText("");
+    public void list_Products(String supermercado , String produto, TextView produtoT, TextView corredorT, TextView prateleiraT){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT "
+                + COLUNA_PRODUTO + ", "
+                + COLUNA_CORREDOR + ", "
+                + COLUNA_PRATELEIRA + " FROM " + TABELA_PRODUTO + " WHERE "
+                + COLUNA_SUPERMERCADO + " = '"
+                + supermercado +"' and "
+                + COLUNA_PRODUTO + " = '"
+                + produto + "';", null);
+        produtoT.setText("");
+        corredorT.setText("");
+        prateleiraT.setText("");
         while (cursor.moveToNext()){
-            textView.append(cursor.getString(1) + " " + cursor.getString(2));
+            produtoT.append(cursor.getString(0));
+            corredorT.append(cursor.getString(1));
+            prateleiraT.append(cursor.getString(2));
         }
     }
 
-    public void list_Supermercado(String supermercado, TextView textView){
-        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM " + TABELA_PRODUTO + " WHERE "
-                + COLUNA_SUPERMERCADO + " = " + supermercado, null);
 
-        while(cursor.moveToNext()){
-            cursor.getString(0);
-        }
+    public void list_Supermercado(String supermercado, TextView textView){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT " + COLUNA_SUPERMERCADO +" FROM " + TABELA_PRODUTO + " WHERE "
+                + COLUNA_SUPERMERCADO + " = '" + supermercado + "';", null);
+        textView.setText("");
         while (cursor.moveToNext()){
-            textView.append(cursor.getString(1) + " " + cursor.getString(2));
+            textView.append(cursor.getString(0));
         }
     }
 
