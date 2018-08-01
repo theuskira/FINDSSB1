@@ -23,13 +23,13 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        this.mViewHolder.nomeSupermercado = (TextView) findViewById(R.id.nomeSupermercado);
+        this.mViewHolder.nomeSupermercado = (TextView) findViewById(R.id.nomeSupermercadoList);
         this.mViewHolder.produtoList = (TextView) findViewById(R.id.produtoList);
-        this.mViewHolder.produtoCorredor = (TextView) findViewById(R.id.produtoCorredor);
-        this.mViewHolder.produtoPrateleira = (TextView) findViewById(R.id.produtoPrateleira);
-        this.mViewHolder.produtoPesquisa = (EditText) findViewById(R.id.produtoPesquisa);
-        this.mViewHolder.addProdutoList = (Button) findViewById(R.id.btAddProduto);
-        this.mViewHolder.btPesquisarProduto = (Button) findViewById(R.id.btPesquisarProduto);
+        this.mViewHolder.produtoCorredor = (TextView) findViewById(R.id.produtoCorredorList);
+        this.mViewHolder.produtoPrateleira = (TextView) findViewById(R.id.produtoPrateleiraList);
+        this.mViewHolder.produtoPesquisa = (EditText) findViewById(R.id.produtoPesquisaList);
+        this.mViewHolder.addProdutoList = (Button) findViewById(R.id.btAddProdutoList);
+        this.mViewHolder.btPesquisarProduto = (Button) findViewById(R.id.btPesquisarProdutoList);
 
 
         Intent intent = getIntent();
@@ -88,8 +88,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         if(id == R.id.concluirLista){
-            Intent intentUsuario = new Intent(this, ListFullActivity.class);
-            startActivity(intentUsuario);
+            Toast.makeText(ListActivity.this, "Funçao Não Implementada!", Toast.LENGTH_LONG).show();
+            //Intent intentUsuario = new Intent(this, ListFullActivity.class);
+            //startActivity(intentUsuario);
         }
         return super.onOptionsItemSelected(item);
     }

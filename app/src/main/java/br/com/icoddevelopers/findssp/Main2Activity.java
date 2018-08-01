@@ -61,7 +61,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         this.mViewHolder.btnEco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Main2Activity.this, "Função Ainda Não Terminada!", Toast.LENGTH_LONG).show();
+                Toast.makeText(Main2Activity.this, "Funçao Não Implementada!", Toast.LENGTH_LONG).show();
             }
         });
 

@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logos"
+        android:icon="@drawable/findssblogo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/logos"
+        android:roundIcon="@drawable/findssblogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".views.SplashActivity">
@@ -19,9 +19,15 @@
         <activity android:name=".views.MainActivity" />
         <activity android:name=".views.SplashActivity2" />
         <activity android:name=".views.LoginActivity" />
-        <activity android:name=".views.ProdutosActivity" />
-        <activity android:name=".cadasto.CadastroActivity" />
-        <activity android:name=".cadasto.CadastroEmpresaActivity"></activity>
+        <activity android:name=".ProdutosActivity" />
+        <activity android:name=".views.CadastroActivity" />
+        <activity android:name=".views.CadastroEmpresaActivity" />
+        <activity android:name=".views.CadastroProdutosActivity" />
+        <activity android:name=".SupermercadosActivity" />
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".ListActivity" />
+        <activity android:name=".ListFullActivity" />
+        <activity android:name=".ListSupermercadosActivity" />
     </application>
 
 </manifest>

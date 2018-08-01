@@ -12,12 +12,14 @@ import br.com.icoddevelopers.findssp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         Button btlogin = (Button) findViewById(R.id.btLogin);
+        Button btCadastro = (Button) findViewById(R.id.btCadastrar);
+
         btlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -26,19 +28,26 @@ public class LoginActivity extends AppCompatActivity {
                 String login = tLogin.getText().toString();
                 String senha = tSenha.getText().toString();
 
-                if(login.equals("icoddevelopers") && senha.equals("icodicod")){
+                if (login.equals("icoddevelopers") && senha.equals("icodicod")) {
                     alert("Login Realizado com Sucesso!");
                     startActivity(new Intent(getBaseContext(), MainActivity.class));
                     finish();
-                }else{
+                } else {
                     alert("Usuario ou Senha Invalido.");
                 }
 
             }
         });
+
+        btCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getBaseContext(), CadastroActivity.class));
+            }
+        });
     }
 
-    private void alert(String s){
+    private void alert(String s) {
         Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
 

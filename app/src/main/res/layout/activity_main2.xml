@@ -17,10 +17,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp"
-        android:paddingTop="0dp"
-        android:text="Supermercado"
+        android:hint="@string/supermercadon"
         android:textIsSelectable="false"
         android:textSize="24sp" />
 

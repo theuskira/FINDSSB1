@@ -7,8 +7,12 @@
     <string name="pesquisar">Pesquisar</string>
     <string name="conta">Conta</string>
     <string name="supermercado">Supermercado</string>
+    <string name="supermercadon">Supermercado Não Encontrado!</string>
     <string name="produto">Produto</string>
-    <string name="prateleira">Prateleira</string>
-    <string name="corredor">Corredor</string>
+    <string name="produton">Produto Não Encontrado!</string>
+    <string name="prateleira">Prateleira: </string>
+    <string name="corredor">Corredor: </string>
     <string name="empresa">Empresa</string>
+    <string name="cadastrar_produto">Cadastrar Produto</string>
+    <string name="title_activity_teste">Teste</string>
 </resources>
