@@ -28,6 +28,7 @@
         <activity android:name=".ListActivity" />
         <activity android:name=".ListFullActivity" />
         <activity android:name=".ListSupermercadosActivity" />
+        <activity android:name=".EcoActivity"></activity>
     </application>
 
 </manifest>

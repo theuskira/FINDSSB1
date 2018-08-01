@@ -71,7 +71,14 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
             String produto = mViewHolder.nomeProduto.getText().toString();
             String corredor = mViewHolder.corredorProduto.getText().toString();
             String prateleira = mViewHolder.prateleiraProduto.getText().toString();
-            float preco = Float.parseFloat(mViewHolder.precoProduto.getText().toString());
+
+            float preco = 0f;
+            if(mViewHolder.precoProduto.getText().toString().equals("")){
+                preco = 0f;
+            }else{
+                preco = Float.parseFloat(mViewHolder.precoProduto.getText().toString());
+            }
+
 
 
             if(supermercado.equals("") || produto.equals("") || corredor.equals("") || prateleira.equals("")){
@@ -90,6 +97,7 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
                     mViewHolder.nomeProduto.setText(null);
                     mViewHolder.corredorProduto.setText(null);
                     mViewHolder.prateleiraProduto.setText(null);
+                    mViewHolder.precoProduto.setText(null);
                 }catch (Exception e){
                     Toast.makeText(CadastroProdutosActivity.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
                 }

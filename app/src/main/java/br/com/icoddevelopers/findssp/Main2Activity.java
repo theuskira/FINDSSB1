@@ -61,7 +61,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         this.mViewHolder.btnEco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Main2Activity.this, "Funçao Não Implementada!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Main2Activity.this, EcoActivity.class);
+                intent.putExtra("Supermercado", supermercado);
+                startActivity(intent);
             }
         });
 

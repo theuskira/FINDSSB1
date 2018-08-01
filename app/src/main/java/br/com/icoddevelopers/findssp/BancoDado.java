@@ -66,7 +66,6 @@ public class BancoDado extends SQLiteOpenHelper{
         String TABELA_P_ECO = "CREATE TABLE " + TABELA_PRODUTO_ECO + "("
                 + COLUNA_SUPERMERCADO + " VARCHAR(50) not null, "
                 + COLUNA_PRODUTO + " VARCHAR(30) not null, "
-                + COLUNA_PRODUTO + " VARCHAR(30) not null, "
                 + COLUNA_CORREDOR + " VARCHAR(30) not null, "
                 + COLUNA_PRECO + " INTEGER(8.2), "
                 + COLUNA_PRATELEIRA + " VARCHAR(30) not null);";
@@ -98,11 +97,12 @@ public class BancoDado extends SQLiteOpenHelper{
 
     }*/
 
-    public void list_Products(String supermercado , String produto, TextView produtoT, TextView corredorT, TextView prateleiraT){
+    public void list_Products(String supermercado , String produto, TextView produtoT, TextView corredorT, TextView prateleiraT, TextView preco){
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT "
                 + COLUNA_PRODUTO + ", "
                 + COLUNA_CORREDOR + ", "
-                + COLUNA_PRATELEIRA + " FROM " + TABELA_PRODUTO + " WHERE "
+                + COLUNA_PRATELEIRA + ", "
+                + COLUNA_PRECO + " FROM " + TABELA_PRODUTO + " WHERE "
                 + COLUNA_SUPERMERCADO + " like '%"
                 + supermercado +"%' and "
                 + COLUNA_PRODUTO + " like '%"
@@ -110,10 +110,12 @@ public class BancoDado extends SQLiteOpenHelper{
         produtoT.setText("");
         corredorT.setText("");
         prateleiraT.setText("");
+        preco.setText("");
         while (cursor.moveToNext()){
             produtoT.append(cursor.getString(0));
             corredorT.append(cursor.getString(1));
             prateleiraT.append(cursor.getString(2));
+            preco.append(cursor.getString(3));
         }
     }
 

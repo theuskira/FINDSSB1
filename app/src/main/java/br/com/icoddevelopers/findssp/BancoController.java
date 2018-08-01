@@ -39,6 +39,27 @@ public class BancoController{
 
     }
 
+    public String insereDado(String supermercado, String produto, String corredor, String prateleira){
+        ContentValues valores;
+        long resultado;
+
+        db = banco.getWritableDatabase();
+        valores = new ContentValues();
+        valores.put(BancoDado.getColunaSupermercado(), supermercado);
+        valores.put(BancoDado.getColunaProduto(), produto);
+        valores.put(BancoDado.getColunaCorredor(), corredor);
+        valores.put(BancoDado.getColunaPrateleira(), prateleira);
+
+        resultado = db.insert(BancoDado.getTabelaProduto(), null, valores);
+        db.close();
+
+        if (resultado ==-1)
+            return "Erro ao inserir registro";
+        else
+            return "Registro Inserido com sucesso";
+
+    }
+
 
 
 

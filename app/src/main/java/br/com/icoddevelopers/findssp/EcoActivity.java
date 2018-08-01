@@ -9,10 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import br.com.icoddevelopers.findssp.R;
-import br.com.icoddevelopers.findssp.views.MainActivity;
-
-public class ProdutosActivity extends AppCompatActivity {
+public class EcoActivity extends AppCompatActivity {
 
     ViewHolder mViewHolder = new ViewHolder();
     BancoDado db = new BancoDado(this);
@@ -21,16 +18,15 @@ public class ProdutosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_produtos);
+        setContentView(R.layout.activity_eco);
 
-        this.mViewHolder.btPesquisaProduto = (Button) findViewById(R.id.btPesquisarProduto);
-        this.mViewHolder.produtoPesquisa = (EditText) findViewById(R.id.produtoPesquisa);
-        this.mViewHolder.nomeSupermercado = (TextView) findViewById(R.id.nomeSupermercado);
-        this.mViewHolder.nomeProduto = (TextView) findViewById(R.id.nomeProduto);
-        this.mViewHolder.produtoCorredor = (TextView) findViewById(R.id.produtoCorredor);
-        this.mViewHolder.produtoPrateleira = (TextView) findViewById(R.id.produtoPrateleira);
-        this.mViewHolder.precoProduto = (TextView) findViewById(R.id.produtoPreco);
-
+        this.mViewHolder.btPesquisaProduto = (Button) findViewById(R.id.btPesquisarProdutoEco);
+        this.mViewHolder.produtoPesquisa = (EditText) findViewById(R.id.produtoPesquisaEco);
+        this.mViewHolder.nomeSupermercado = (TextView) findViewById(R.id.nomeSupermercadoEco);
+        this.mViewHolder.nomeProduto = (TextView) findViewById(R.id.nomeProdutoEco);
+        this.mViewHolder.produtoCorredor = (TextView) findViewById(R.id.produtoCorredorEco);
+        this.mViewHolder.produtoPrateleira = (TextView) findViewById(R.id.produtoPrateleiraEco);
+        this.mViewHolder.precoProduto = (TextView) findViewById(R.id.produtoPrecoEco);
 
         Intent intent = getIntent();
         final String supermercado = intent.getStringExtra("Supermercado");
@@ -38,7 +34,7 @@ public class ProdutosActivity extends AppCompatActivity {
         try {
             db.list_Supermercado(supermercado, mViewHolder.nomeSupermercado);
             db.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
@@ -48,15 +44,15 @@ public class ProdutosActivity extends AppCompatActivity {
                 try {
                     db.list_Products(supermercado, mViewHolder.produtoPesquisa.getText().toString(), mViewHolder.nomeProduto, mViewHolder.produtoCorredor, mViewHolder.produtoPrateleira, mViewHolder.precoProduto);
                     db.close();
-                }catch (Exception e){
-                    Toast.makeText(ProdutosActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(EcoActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
 
     }
 
-    private static class ViewHolder{
+    private static class ViewHolder {
         TextView nomeSupermercado;
         TextView produtoCorredor;
         TextView produtoPrateleira;

@@ -27,6 +27,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         this.mViewHolder.produtoList = (TextView) findViewById(R.id.produtoList);
         this.mViewHolder.produtoCorredor = (TextView) findViewById(R.id.produtoCorredorList);
         this.mViewHolder.produtoPrateleira = (TextView) findViewById(R.id.produtoPrateleiraList);
+        this.mViewHolder.precoProduto = (TextView) findViewById(R.id.produtoPrecoList);
         this.mViewHolder.produtoPesquisa = (EditText) findViewById(R.id.produtoPesquisaList);
         this.mViewHolder.addProdutoList = (Button) findViewById(R.id.btAddProdutoList);
         this.mViewHolder.btPesquisarProduto = (Button) findViewById(R.id.btPesquisarProdutoList);
@@ -46,7 +47,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 try {
-                    db.list_Products(supermercado, mViewHolder.produtoPesquisa.getText().toString(), mViewHolder.produtoList, mViewHolder.produtoCorredor, mViewHolder.produtoPrateleira);
+                    db.list_Products(supermercado, mViewHolder.produtoPesquisa.getText().toString(), mViewHolder.produtoList, mViewHolder.produtoCorredor, mViewHolder.produtoPrateleira, mViewHolder.precoProduto);
                     db.close();
                 }catch (Exception e){
                     Toast.makeText(ListActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -69,6 +70,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         TextView produtoList;
         TextView produtoCorredor;
         TextView produtoPrateleira;
+        TextView precoProduto;
         EditText produtoPesquisa;
         Button addProdutoList;
         Button btPesquisarProduto;
