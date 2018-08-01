@@ -87,10 +87,10 @@ public class BancoDado extends SQLiteOpenHelper{
                 + COLUNA_PRODUTO + ", "
                 + COLUNA_CORREDOR + ", "
                 + COLUNA_PRATELEIRA + " FROM " + TABELA_PRODUTO + " WHERE "
-                + COLUNA_SUPERMERCADO + " = '"
-                + supermercado +"' and "
-                + COLUNA_PRODUTO + " = '"
-                + produto + "';", null);
+                + COLUNA_SUPERMERCADO + " like '%"
+                + supermercado +"%' and "
+                + COLUNA_PRODUTO + " like '%"
+                + produto + "%';", null);
         produtoT.setText("");
         corredorT.setText("");
         prateleiraT.setText("");
@@ -104,7 +104,7 @@ public class BancoDado extends SQLiteOpenHelper{
 
     public void list_Supermercado(String supermercado, TextView textView){
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT " + COLUNA_SUPERMERCADO +" FROM " + TABELA_PRODUTO + " WHERE "
-                + COLUNA_SUPERMERCADO + " = '" + supermercado + "';", null);
+                + COLUNA_SUPERMERCADO + " like '%" + supermercado + "%';", null);
         textView.setText("");
         while (cursor.moveToNext()){
             textView.append(cursor.getString(0));
