@@ -35,6 +35,7 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
         mViewHolder.corredorProduto = (EditText) findViewById(R.id.cadastroCorredorProduto);
         mViewHolder.prateleiraProduto = (EditText) findViewById(R.id.cadastroPrateleiraProduto);
         mViewHolder.nomeSupermercado = (EditText) findViewById(R.id.cadastroNomeSupermercado);
+        mViewHolder.precoProduto = (EditText) findViewById(R.id.cadastroPrecoProduto);
 
     }
 
@@ -49,6 +50,7 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
         EditText corredorProduto;
         EditText prateleiraProduto;
         EditText nomeSupermercado;
+        EditText precoProduto;
     }
 
     @Override
@@ -69,21 +71,18 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
             String produto = mViewHolder.nomeProduto.getText().toString();
             String corredor = mViewHolder.corredorProduto.getText().toString();
             String prateleira = mViewHolder.prateleiraProduto.getText().toString();
-
+            float preco = Float.parseFloat(mViewHolder.precoProduto.getText().toString());
 
 
             if(supermercado.equals("") || produto.equals("") || corredor.equals("") || prateleira.equals("")){
                 Toast.makeText(CadastroProdutosActivity.this, "Campos Obrigatorios Faltando!", Toast.LENGTH_LONG).show();
             }else{
                 try {
-                    /*
-                    db.addProduto(new ProdutosSupermercado(mViewHolder.nomeSupermercado.getText().toString(), mViewHolder.nomeProduto.getText().toString(),mViewHolder.corredorProduto.getText().toString(),mViewHolder.prateleiraProduto.getText().toString()));
-                    */
 
                     BancoController crud = new BancoController(getBaseContext());
                     String resultado;
 
-                    resultado = crud.insereDado(supermercado, produto, corredor, prateleira);
+                    resultado = crud.insereDado(supermercado, produto, corredor, prateleira, preco);
 
                     Toast.makeText(CadastroProdutosActivity.this, resultado, Toast.LENGTH_LONG).show();
 

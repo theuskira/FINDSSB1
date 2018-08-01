@@ -17,7 +17,7 @@ public class BancoController{
         banco = new BancoDado(context);
     }
 
-    public String insereDado(String supermercado, String produto, String corredor, String prateleira){
+    public String insereDado(String supermercado, String produto, String corredor, String prateleira, float preco){
         ContentValues valores;
         long resultado;
 
@@ -27,6 +27,7 @@ public class BancoController{
         valores.put(BancoDado.getColunaProduto(), produto);
         valores.put(BancoDado.getColunaCorredor(), corredor);
         valores.put(BancoDado.getColunaPrateleira(), prateleira);
+        valores.put(BancoDado.getColunaPreco(), preco);
 
         resultado = db.insert(BancoDado.getTabelaProduto(), null, valores);
         db.close();

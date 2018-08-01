@@ -35,12 +35,18 @@ public class BancoDado extends SQLiteOpenHelper{
         return COLUNA_PRATELEIRA;
     }
 
+    public static String getColunaPreco() {
+        return COLUNA_PRECO;
+    }
+
     private static final String TABELA_PRODUTO = "tb_produto";
+    private static final String TABELA_PRODUTO_ECO = "tb_produto_eco";
 
     private static final String COLUNA_SUPERMERCADO = "supermercado";
     private static final String COLUNA_PRODUTO = "produto";
     private static final String COLUNA_CORREDOR = "corredor";
     private static final String COLUNA_PRATELEIRA = "prateleira";
+    private static final String COLUNA_PRECO = "PRECO";
 
 
     public BancoDado(Context context) {
@@ -50,13 +56,23 @@ public class BancoDado extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String QUERY_COLUNA = "CREATE TABLE " + TABELA_PRODUTO + "("
-                + COLUNA_SUPERMERCADO + " TEXT not null, "
-                + COLUNA_PRODUTO + " TEXT not null, "
-                + COLUNA_CORREDOR + " TEXT not null, "
-                + COLUNA_PRATELEIRA + " TEXT not null);";
+        String TABELA_P = "CREATE TABLE " + TABELA_PRODUTO + "("
+                + COLUNA_SUPERMERCADO + " VARCHAR(50) not null, "
+                + COLUNA_PRODUTO + " VARCHAR(30) not null, "
+                + COLUNA_CORREDOR + " VARCHAR(30) not null, "
+                + COLUNA_PRECO + " INTEGER(8.2), "
+                + COLUNA_PRATELEIRA + " VARCHAR(30) not null);";
 
-        db.execSQL(QUERY_COLUNA);
+        String TABELA_P_ECO = "CREATE TABLE " + TABELA_PRODUTO_ECO + "("
+                + COLUNA_SUPERMERCADO + " VARCHAR(50) not null, "
+                + COLUNA_PRODUTO + " VARCHAR(30) not null, "
+                + COLUNA_PRODUTO + " VARCHAR(30) not null, "
+                + COLUNA_CORREDOR + " VARCHAR(30) not null, "
+                + COLUNA_PRECO + " INTEGER(8.2), "
+                + COLUNA_PRATELEIRA + " VARCHAR(30) not null);";
+
+        db.execSQL(TABELA_P);
+        db.execSQL(TABELA_P_ECO);
     }
 
     @Override
