@@ -1,4 +1,4 @@
-package br.com.icoddevelopers.findssp;
+package br.com.icoddevelopers.findssp.views;
 
 import  android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import br.com.icoddevelopers.findssp.R;
 import br.com.icoddevelopers.findssp.views.CadastroProdutosActivity;
 
 public class SupermercadosActivity extends AppCompatActivity {

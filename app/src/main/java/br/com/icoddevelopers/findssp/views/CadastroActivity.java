@@ -22,7 +22,7 @@ public class CadastroActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflar = getMenuInflater();
-        inflar.inflate(R.menu.menucadastro, menu);
+        inflar.inflate(R.menu.salvarplus, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -31,8 +31,11 @@ public class CadastroActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.usuarioSalvar) {
-            //System.out.print("Teucu");
+        if (id == R.id.salvarPlus) {
+
+        }else if (id == R.id.cadastrarEmpresaPlus) {
+            Intent intent = new Intent(CadastroActivity.this, CadastroEmpresaActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="right"
     android:orientation="vertical"
-    tools:context=".Main2Activity">
+    tools:context=".views.Main2Activity">
 
     <TextView
         android:id="@+id/txtSupermercado"

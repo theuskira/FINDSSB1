@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,8 +16,13 @@ public class BancoDado extends SQLiteOpenHelper{
     private static final int VERSAO_BANCO = 1;
     private static final String NOME_BANCO = "banco_simples";
 
+
     public static String getTabelaProduto() {
         return TABELA_PRODUTO;
+    }
+
+    public static String getTabelaSupermercado() {
+        return TABELA_SUPERMERCADO;
     }
 
     public static String getColunaSupermercado() {
@@ -39,15 +45,74 @@ public class BancoDado extends SQLiteOpenHelper{
         return COLUNA_PRECO;
     }
 
+    public static String getColunaEco() {
+        return COLUNA_ECO;
+    }
+
+    public static String getColunaCnpj() {
+        return COLUNA_CNPJ;
+    }
+
+    public static String getColunaEmail() {
+        return COLUNA_EMAIL;
+    }
+
+    public static String getColunaRua() {
+        return COLUNA_RUA;
+    }
+
+    public static String getColunaBairro() {
+        return COLUNA_BAIRRO;
+    }
+
+    public static String getColunaCidade() {
+        return COLUNA_CIDADE;
+    }
+
+    public static String getColunaNum() {
+        return COLUNA_NUM;
+    }
+
     private static final String TABELA_PRODUTO = "tb_produto";
-    private static final String TABELA_PRODUTO_ECO = "tb_produto_eco";
+    private static final String TABELA_SUPERMERCADO = "tb_supermercado";
 
     private static final String COLUNA_SUPERMERCADO = "supermercado";
     private static final String COLUNA_PRODUTO = "produto";
     private static final String COLUNA_CORREDOR = "corredor";
     private static final String COLUNA_PRATELEIRA = "prateleira";
     private static final String COLUNA_PRECO = "PRECO";
+    private static final String COLUNA_ECO = "ECO";
+    private static final String COLUNA_CNPJ = "CNPJ";
+    private static final String COLUNA_EMAIL = "EMAIL";
+    private static final String COLUNA_RUA = "RUA";
+    private static final String COLUNA_BAIRRO = "BAIRRO";
+    private static final String COLUNA_CIDADE = "CIDADE";
+    private static final String COLUNA_NUM = "NUM";
+    private static final String COLUNA_SENHA = "SENHA";
 
+    public static String getColunaSenha() {
+        return COLUNA_SENHA;
+    }
+
+    private  final String TABELA_P = "CREATE TABLE " + TABELA_PRODUTO + "("
+            + COLUNA_PRODUTO + " VARCHAR(30) not null, "
+            + COLUNA_CORREDOR + " VARCHAR(30) not null, "
+            + COLUNA_PRATELEIRA + " VARCHAR(30) not null, "
+            + COLUNA_PRECO + " DOUBLE(8.2), "
+            + COLUNA_ECO + " BOOLEAN, "
+            + COLUNA_CNPJ + " INTEGER(14), "
+            + "FOREIGN KEY (" + COLUNA_CNPJ + ") REFERENCES "
+            + TABELA_SUPERMERCADO + " (" + COLUNA_CNPJ + "));";
+
+    private final String TABELA_CADASTRO_EMPRESA = "CREATE TABLE " + TABELA_SUPERMERCADO + "("
+            + COLUNA_SUPERMERCADO + " VARCHAR(50) NOT NULL, "
+            + COLUNA_EMAIL + " VARCHAR(50) NOT NULL, "
+            + COLUNA_RUA + " VARCHAR(50) NOT NULL, "
+            + COLUNA_NUM + " INTEGER(8), "
+            + COLUNA_BAIRRO + " VARCHAR(30) NOT NULL, "
+            + COLUNA_CIDADE + " VARCHAR(30) NOT NULL, "
+            + COLUNA_CNPJ + " INTEGER(14) PRIMARY KEY, "
+            + COLUNA_SENHA + " VARCHAR(50) NOT NULL); ";
 
     public BancoDado(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
@@ -55,23 +120,8 @@ public class BancoDado extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        String TABELA_P = "CREATE TABLE " + TABELA_PRODUTO + "("
-                + COLUNA_SUPERMERCADO + " VARCHAR(50) not null, "
-                + COLUNA_PRODUTO + " VARCHAR(30) not null, "
-                + COLUNA_CORREDOR + " VARCHAR(30) not null, "
-                + COLUNA_PRECO + " INTEGER(8.2), "
-                + COLUNA_PRATELEIRA + " VARCHAR(30) not null);";
-
-        String TABELA_P_ECO = "CREATE TABLE " + TABELA_PRODUTO_ECO + "("
-                + COLUNA_SUPERMERCADO + " VARCHAR(50) not null, "
-                + COLUNA_PRODUTO + " VARCHAR(30) not null, "
-                + COLUNA_CORREDOR + " VARCHAR(30) not null, "
-                + COLUNA_PRECO + " INTEGER(8.2), "
-                + COLUNA_PRATELEIRA + " VARCHAR(30) not null);";
-
+        db.execSQL(TABELA_CADASTRO_EMPRESA);
         db.execSQL(TABELA_P);
-        db.execSQL(TABELA_P_ECO);
     }
 
     @Override
@@ -79,33 +129,39 @@ public class BancoDado extends SQLiteOpenHelper{
 
     }
 
-    /* CRUD ABAIXO
-
-    public void addProduto(ProdutosSupermercado produtosSupermercado){
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(COLUNA_SUPERMERCADO, produtosSupermercado.getSupermercado());
-        values.put(COLUNA_PRODUTO, produtosSupermercado.getProduto());
-        values.put(COLUNA_CORREDOR, produtosSupermercado.getCorredor());
-        values.put(COLUNA_PRATELEIRA, produtosSupermercado.getPrateleira());
-
-        db.insert(TABELA_PRODUTO, null, values);
-        db.close();
-
-    }*/
-
-    public void list_Products(String supermercado , String produto, TextView produtoT, TextView corredorT, TextView prateleiraT, TextView preco){
+    public void list_Products(String produto, TextView produtoT, TextView corredorT, TextView prateleiraT, TextView preco){
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT "
                 + COLUNA_PRODUTO + ", "
                 + COLUNA_CORREDOR + ", "
                 + COLUNA_PRATELEIRA + ", "
-                + COLUNA_PRECO + " FROM " + TABELA_PRODUTO + " WHERE "
-                + COLUNA_SUPERMERCADO + " like '%"
-                + supermercado +"%' and "
-                + COLUNA_PRODUTO + " like '%"
+                + COLUNA_PRECO + " FROM " + TABELA_PRODUTO + " JOIN "
+                + TABELA_SUPERMERCADO + " ON "
+                + TABELA_SUPERMERCADO + "." + COLUNA_CNPJ + " = "
+                + TABELA_PRODUTO + "." + COLUNA_CNPJ + " WHERE "
+                + TABELA_PRODUTO + "." + COLUNA_PRODUTO + " LIKE '%"
+                + produto + "%' and " + COLUNA_ECO +" = 0;", null);
+        produtoT.setText("");
+        corredorT.setText("");
+        prateleiraT.setText("");
+        preco.setText("");
+        while (cursor.moveToNext()){
+            produtoT.append(cursor.getString(0));
+            corredorT.append(cursor.getString(1));
+            prateleiraT.append(cursor.getString(2));
+            preco.append(cursor.getString(3));
+        }
+    }
+
+    public void list_All_Products(String produto, TextView produtoT, TextView corredorT, TextView prateleiraT, TextView preco){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT "
+                + COLUNA_PRODUTO + ", "
+                + COLUNA_CORREDOR + ", "
+                + COLUNA_PRATELEIRA + ", "
+                + COLUNA_PRECO + " FROM " + TABELA_PRODUTO + " JOIN "
+                + TABELA_SUPERMERCADO + " ON "
+                + TABELA_SUPERMERCADO + "." + COLUNA_CNPJ + " = "
+                + TABELA_PRODUTO + "." + COLUNA_CNPJ + " WHERE "
+                + TABELA_PRODUTO + "." + COLUNA_PRODUTO + " LIKE '%"
                 + produto + "%';", null);
         produtoT.setText("");
         corredorT.setText("");
@@ -119,9 +175,33 @@ public class BancoDado extends SQLiteOpenHelper{
         }
     }
 
+    public void list_ProductsEco(String produto, TextView produtoT, TextView corredorT, TextView prateleiraT, TextView preco){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT "
+                + COLUNA_PRODUTO + ", "
+                + COLUNA_CORREDOR + ", "
+                + COLUNA_PRATELEIRA + ", "
+                + COLUNA_PRECO + " FROM " + TABELA_PRODUTO + " JOIN "
+                + TABELA_SUPERMERCADO + " ON "
+                + TABELA_SUPERMERCADO + "." + COLUNA_CNPJ + " = "
+                + TABELA_PRODUTO + "." + COLUNA_CNPJ + " WHERE "
+                + TABELA_PRODUTO + "." + COLUNA_PRODUTO + " LIKE '%"
+                + produto + "%' and "
+                + COLUNA_PRODUTO + " like '%"
+                + produto + "%' and " + COLUNA_ECO +" = 1;", null);
+        produtoT.setText("");
+        corredorT.setText("");
+        prateleiraT.setText("");
+        preco.setText("");
+        while (cursor.moveToNext()){
+            produtoT.append(cursor.getString(0));
+            corredorT.append(cursor.getString(1));
+            prateleiraT.append(cursor.getString(2));
+            preco.append(cursor.getString(3));
+        }
+    }
 
     public void list_Supermercado(String supermercado, TextView textView){
-        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT " + COLUNA_SUPERMERCADO +" FROM " + TABELA_PRODUTO + " WHERE "
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT " + COLUNA_SUPERMERCADO +" FROM " + TABELA_SUPERMERCADO + " WHERE "
                 + COLUNA_SUPERMERCADO + " like '%" + supermercado + "%';", null);
         textView.setText("");
         while (cursor.moveToNext()){
@@ -129,5 +209,61 @@ public class BancoDado extends SQLiteOpenHelper{
         }
     }
 
+    public void verificar_login(String login, String senha, TextView v1, TextView v2){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT " + COLUNA_EMAIL +", " + COLUNA_SENHA +" FROM " + TABELA_SUPERMERCADO + " WHERE "
+                + COLUNA_EMAIL + " = '" + login + "' and " + COLUNA_SENHA + " = '"
+                + senha + "';", null);
+        v1.setText("");
+        v2.setText("");
+        while (cursor.moveToNext()){
+            v1.append(cursor.getString(0));
+            v2.append(cursor.getString(1));
+        }
+    }
+
+    public void verificar_cnpj(String email, TextView cnpj){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT " + COLUNA_CNPJ + " FROM " + TABELA_SUPERMERCADO + " WHERE "
+                + COLUNA_EMAIL + " = '" + email + "';", null);
+        cnpj.setText("");
+        while (cursor.moveToNext()){
+            cnpj.append(cursor.getString(0));
+        }
+    }
+
+    public void verificar_empresa(String email, TextView empresa){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT " + COLUNA_SUPERMERCADO + " FROM " + TABELA_SUPERMERCADO + " WHERE "
+                + COLUNA_EMAIL + " = '" + email + "';", null);
+        empresa.setText("");
+        while (cursor.moveToNext()){
+            empresa.append(cursor.getString(0));
+        }
+    }
+
+    public void conta(int cnpjS, TextView empresa, TextView cnpj, TextView email, TextView rua, TextView numero, TextView bairro, TextView cidade){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT " + COLUNA_SUPERMERCADO + ", "
+                + COLUNA_CNPJ + ", "
+                + COLUNA_EMAIL + ", "
+                + COLUNA_RUA + ", "
+                + COLUNA_NUM + ", "
+                + COLUNA_BAIRRO + ", "
+                + COLUNA_CIDADE + " FROM " + TABELA_SUPERMERCADO + " WHERE "
+                + COLUNA_CNPJ + " = " + cnpjS + ";", null);
+        empresa.setText("");
+        cnpj.setText("");
+        email.setText("");
+        rua.setText("");
+        numero.setText("");
+        bairro.setText("");
+        cidade.setText("");
+        while (cursor.moveToNext()){
+            empresa.append(cursor.getString(0));
+            cnpj.append(cursor.getString(1));
+            email.append(cursor.getString(2));
+            rua.append(cursor.getString(3));
+            numero.append(cursor.getString(4));
+            bairro.append(cursor.getString(5));
+            cidade.append(cursor.getString(6));
+        }
+    }
 
 }

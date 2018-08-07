@@ -1,4 +1,4 @@
-package br.com.icoddevelopers.findssp;
+package br.com.icoddevelopers.findssp.views;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,10 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import br.com.icoddevelopers.findssp.views.CadastroProdutosActivity;
+import br.com.icoddevelopers.findssp.BancoDado;
+import br.com.icoddevelopers.findssp.R;
 
 public class ListActivity extends AppCompatActivity implements View.OnClickListener{
-    BancoDado db;
+    BancoDado db = new BancoDado(this);
     ViewHolder mViewHolder = new ViewHolder();
 
     @Override
@@ -35,6 +36,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
         final String supermercado = intent.getStringExtra("Supermercado");
+        Toast.makeText(this, supermercado, Toast.LENGTH_LONG).show();
 
         try {
             db.list_Supermercado(supermercado, mViewHolder.nomeSupermercado);
@@ -47,7 +49,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 try {
-                    db.list_Products(supermercado, mViewHolder.produtoPesquisa.getText().toString(), mViewHolder.produtoList, mViewHolder.produtoCorredor, mViewHolder.produtoPrateleira, mViewHolder.precoProduto);
+                    db.list_All_Products(mViewHolder.produtoPesquisa.getText().toString(), mViewHolder.produtoList, mViewHolder.produtoCorredor, mViewHolder.produtoPrateleira, mViewHolder.precoProduto);
                     db.close();
                 }catch (Exception e){
                     Toast.makeText(ListActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();

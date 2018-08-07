@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,12 +20,16 @@ import java.util.List;
 
 import br.com.icoddevelopers.findssp.BancoController;
 import br.com.icoddevelopers.findssp.BancoDado;
+import br.com.icoddevelopers.findssp.Constants;
 import br.com.icoddevelopers.findssp.ProdutosSupermercado;
 import br.com.icoddevelopers.findssp.R;
+import br.com.icoddevelopers.findssp.Status;
 
 public class CadastroProdutosActivity extends AppCompatActivity implements View.OnClickListener{
-    ViewHolder mViewHolder = new ViewHolder();
-    BancoDado db = new BancoDado(this);
+    private ViewHolder mViewHolder = new ViewHolder();
+    private BancoDado db = new BancoDado(this);
+    private Status status;
+    private int supermercado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +39,28 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
         mViewHolder.nomeProduto = (EditText) findViewById(R.id.cadastroNomeProduto);
         mViewHolder.corredorProduto = (EditText) findViewById(R.id.cadastroCorredorProduto);
         mViewHolder.prateleiraProduto = (EditText) findViewById(R.id.cadastroPrateleiraProduto);
-        mViewHolder.nomeSupermercado = (EditText) findViewById(R.id.cadastroNomeSupermercado);
         mViewHolder.precoProduto = (EditText) findViewById(R.id.cadastroPrecoProduto);
+        mViewHolder.nomeSupermercado = (TextView) findViewById(R.id.cadastroProdutoNomeSupermercado);
+        mViewHolder.cnpjSupermercado = (TextView) findViewById(R.id.cadastroProdutoCNPJSupermercado);
+        mViewHolder.checkEco = (CheckBox) findViewById(R.id.checkEco);
+
+
+        status = new Status(this);
+
+
+        try {
+            db.verificar_empresa(status.getStorageStrin(Constants.EMAIL_EMPRESA_LOGADA), mViewHolder.nomeSupermercado);
+            db.close();
+        }catch (Exception e){
+            Toast.makeText(CadastroProdutosActivity.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
+        }
+        try {
+            db.verificar_cnpj(status.getStorageStrin(Constants.EMAIL_EMPRESA_LOGADA), mViewHolder.cnpjSupermercado);
+            supermercado =  Integer.parseInt(mViewHolder.cnpjSupermercado.getText().toString());
+            db.close();
+        }catch (Exception e){
+            Toast.makeText(CadastroProdutosActivity.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -49,8 +74,10 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
         EditText nomeProduto;
         EditText corredorProduto;
         EditText prateleiraProduto;
-        EditText nomeSupermercado;
         EditText precoProduto;
+        TextView nomeSupermercado;
+        TextView cnpjSupermercado;
+        CheckBox checkEco;
     }
 
     @Override
@@ -67,7 +94,7 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
         int id = item.getItemId();
 
         if(id == R.id.usuarioSalvar){
-            String supermercado = mViewHolder.nomeSupermercado.getText().toString();
+
             String produto = mViewHolder.nomeProduto.getText().toString();
             String corredor = mViewHolder.corredorProduto.getText().toString();
             String prateleira = mViewHolder.prateleiraProduto.getText().toString();
@@ -79,29 +106,49 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
                 preco = Float.parseFloat(mViewHolder.precoProduto.getText().toString());
             }
 
-
-
-            if(supermercado.equals("") || produto.equals("") || corredor.equals("") || prateleira.equals("")){
+            if(produto.equals("") || corredor.equals("") || prateleira.equals("")){
                 Toast.makeText(CadastroProdutosActivity.this, "Campos Obrigatorios Faltando!", Toast.LENGTH_LONG).show();
             }else{
-                try {
 
-                    BancoController crud = new BancoController(getBaseContext());
-                    String resultado;
+                if(mViewHolder.checkEco.isChecked()){
+                    try {
 
-                    resultado = crud.insereDado(supermercado, produto, corredor, prateleira, preco);
+                        BancoController crud = new BancoController(getBaseContext());
+                        mViewHolder.corredorProduto.setText(null);
+                        String resultado;
 
-                    Toast.makeText(CadastroProdutosActivity.this, resultado, Toast.LENGTH_LONG).show();
+                        resultado = crud.insereDadoEco(supermercado, produto, corredor, prateleira, preco);
 
-                    mViewHolder.nomeSupermercado.setText(null);
-                    mViewHolder.nomeProduto.setText(null);
-                    mViewHolder.corredorProduto.setText(null);
-                    mViewHolder.prateleiraProduto.setText(null);
-                    mViewHolder.precoProduto.setText(null);
-                }catch (Exception e){
-                    Toast.makeText(CadastroProdutosActivity.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(CadastroProdutosActivity.this, resultado, Toast.LENGTH_LONG).show();
+
+                        mViewHolder.nomeProduto.setText(null);
+                        mViewHolder.prateleiraProduto.setText(null);
+                        mViewHolder.precoProduto.setText(null);
+
+                        Toast.makeText(CadastroProdutosActivity.this, "Produto Ecológico Adicionado!", Toast.LENGTH_LONG).show();
+
+                    }catch (Exception e){
+                        Toast.makeText(CadastroProdutosActivity.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                }else{
+                    try {
+
+                        BancoController crud = new BancoController(getBaseContext());
+                        mViewHolder.corredorProduto.setText(null);
+                        String resultado;
+
+                        resultado = crud.insereDado(supermercado, produto, corredor, prateleira, preco);
+
+                        Toast.makeText(CadastroProdutosActivity.this, resultado, Toast.LENGTH_LONG).show();
+
+                        mViewHolder.nomeProduto.setText(null);
+                        mViewHolder.prateleiraProduto.setText(null);
+                        mViewHolder.precoProduto.setText(null);
+                    }catch (Exception e){
+                        Toast.makeText(CadastroProdutosActivity.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                    }
                 }
-
             }
         }
         return super.onOptionsItemSelected(item);

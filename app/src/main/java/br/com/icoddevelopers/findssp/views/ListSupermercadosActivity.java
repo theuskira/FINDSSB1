@@ -1,10 +1,12 @@
-package br.com.icoddevelopers.findssp;
+package br.com.icoddevelopers.findssp.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
+
+import br.com.icoddevelopers.findssp.R;
 
 public class ListSupermercadosActivity extends AppCompatActivity {
 
