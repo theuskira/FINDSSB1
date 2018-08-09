@@ -122,6 +122,7 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
                         Toast.makeText(CadastroProdutosActivity.this, resultado, Toast.LENGTH_LONG).show();
 
                         mViewHolder.nomeProduto.setText(null);
+                        mViewHolder.corredorProduto.setText(null);
                         mViewHolder.prateleiraProduto.setText(null);
                         mViewHolder.precoProduto.setText(null);
 
@@ -142,9 +143,14 @@ public class CadastroProdutosActivity extends AppCompatActivity implements View.
 
                         Toast.makeText(CadastroProdutosActivity.this, resultado, Toast.LENGTH_LONG).show();
 
+
                         mViewHolder.nomeProduto.setText(null);
+                        mViewHolder.corredorProduto.setText(null);
                         mViewHolder.prateleiraProduto.setText(null);
                         mViewHolder.precoProduto.setText(null);
+
+                        Toast.makeText(CadastroProdutosActivity.this, "Produto Inserido!", Toast.LENGTH_LONG).show();
+
                     }catch (Exception e){
                         Toast.makeText(CadastroProdutosActivity.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
                     }

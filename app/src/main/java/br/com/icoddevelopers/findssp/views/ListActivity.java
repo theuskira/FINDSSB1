@@ -1,5 +1,6 @@
 package br.com.icoddevelopers.findssp.views;
 
+import android.arch.lifecycle.AndroidViewModel;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,24 +35,25 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         this.mViewHolder.produtoPesquisa = (EditText) findViewById(R.id.produtoPesquisaList);
         this.mViewHolder.addProdutoList = (Button) findViewById(R.id.btAddProdutoList);
         this.mViewHolder.btPesquisarProduto = (Button) findViewById(R.id.btPesquisarProdutoList);
+        ListView lista=(ListView) findViewById(R.id.listProdutos);
 
+
+        ArrayAdapter <String> dados=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1);
+        for (int x=10;x<3;x++) {
+            dados.add("Teste");
+        }
+        lista.setAdapter(dados);
 
         Intent intent = getIntent();
         final String supermercado = intent.getStringExtra("Supermercado");
-        Toast.makeText(this, supermercado, Toast.LENGTH_LONG).show();
-
-        try {
-            db.list_Supermercado(supermercado, mViewHolder.nomeSupermercado);
-            db.close();
-        }catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        final String cnpj = intent.getStringExtra("CNPJ");
+        mViewHolder.nomeSupermercado.setText(supermercado);
 
         mViewHolder.btPesquisarProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    db.list_All_Products(mViewHolder.produtoPesquisa.getText().toString(), mViewHolder.produtoList, mViewHolder.produtoCorredor, mViewHolder.produtoPrateleira, mViewHolder.precoProduto);
+                    db.list_All_Products(Integer.parseInt(cnpj), mViewHolder.produtoPesquisa.getText().toString(), mViewHolder.produtoList, mViewHolder.produtoCorredor, mViewHolder.produtoPrateleira, mViewHolder.precoProduto);
                     db.close();
                 }catch (Exception e){
                     Toast.makeText(ListActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();

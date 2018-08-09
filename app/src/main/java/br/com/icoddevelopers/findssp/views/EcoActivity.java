@@ -34,19 +34,14 @@ public class EcoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String supermercado = intent.getStringExtra("Supermercado");
-
-        try {
-            db.list_Supermercado(supermercado, mViewHolder.nomeSupermercado);
-            db.close();
-        } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        final String cnpj = intent.getStringExtra("CNPJ");
+        mViewHolder.nomeSupermercado.setText(supermercado);
 
         mViewHolder.btPesquisaProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    db.list_ProductsEco(mViewHolder.produtoPesquisa.getText().toString(), mViewHolder.nomeProduto, mViewHolder.produtoCorredor, mViewHolder.produtoPrateleira, mViewHolder.precoProduto);
+                    db.list_ProductsEco(Integer.parseInt(cnpj), mViewHolder.produtoPesquisa.getText().toString(), mViewHolder.nomeProduto, mViewHolder.produtoCorredor, mViewHolder.produtoPrateleira, mViewHolder.precoProduto);
                     db.close();
                 } catch (Exception e) {
                     Toast.makeText(EcoActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();

@@ -37,9 +37,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.mViewHolder.perquisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                    intent.putExtra("Supermercado", mViewHolder.pesquisaSupermercado.getText().toString());
-                    startActivity(intent);
+                    if(mViewHolder.pesquisaSupermercado.getText().toString().equals("")){
+                        Toast.makeText(MainActivity.this, "Campo Vazio!", Toast.LENGTH_LONG).show();
+                    }else{
+                        Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                        intent.putExtra("Supermercado", mViewHolder.pesquisaSupermercado.getText().toString());
+                        startActivity(intent);
+                    }
             }
         });
 

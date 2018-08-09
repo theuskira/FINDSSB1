@@ -23,12 +23,12 @@ public class BancoController{
 
         db = banco.getWritableDatabase();
         valores = new ContentValues();
-        valores.put(BancoDado.getColunaCnpj(), cnpj);
         valores.put(BancoDado.getColunaProduto(), produto);
         valores.put(BancoDado.getColunaCorredor(), corredor);
         valores.put(BancoDado.getColunaPrateleira(), prateleira);
         valores.put(BancoDado.getColunaPreco(), preco);
         valores.put(BancoDado.getColunaEco(), 0);
+        valores.put(BancoDado.getColunaCnpj(), cnpj);
 
         resultado = db.insert(BancoDado.getTabelaProduto(), null, valores);
         db.close();

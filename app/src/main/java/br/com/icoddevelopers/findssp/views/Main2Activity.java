@@ -22,6 +22,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_main2);
 
         this.mViewHolder.txtSupermercado = (TextView) findViewById(R.id.txtSupermercado);
+        this.mViewHolder.txtCNPJ = (TextView) findViewById(R.id.main2Cnp);
         this.mViewHolder.btnPesquisar = (Button) findViewById(R.id.btnPesquisar);
         this.mViewHolder.btnList = (Button) findViewById(R.id.btnList);
         this.mViewHolder.btnEco = (Button) findViewById(R.id.btnEco);
@@ -32,16 +33,19 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         final String supermercado = intent.getStringExtra("Supermercado");
 
         try {
-            db.list_Supermercado(supermercado, mViewHolder.txtSupermercado);
+            db.list_Supermercado(supermercado, mViewHolder.txtSupermercado, mViewHolder.txtCNPJ);
+
             db.close();
         }catch (Exception e){
             Toast.makeText(Main2Activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
         this.mViewHolder.btnPesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Main2Activity.this, ProdutosActivity.class);
-                intent.putExtra("Supermercado", supermercado);
+                intent.putExtra("Supermercado", mViewHolder.txtSupermercado.getText().toString());
+                intent.putExtra("CNPJ", mViewHolder.txtCNPJ.getText().toString());
                 startActivity(intent);
             }
         });
@@ -50,7 +54,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Main2Activity.this, ListActivity.class);
-                intent.putExtra("Supermercado", supermercado);
+                intent.putExtra("Supermercado", mViewHolder.txtSupermercado.getText().toString());
+                intent.putExtra("CNPJ", mViewHolder.txtCNPJ.getText().toString());
                 startActivity(intent);
             }
         });
@@ -59,7 +64,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Main2Activity.this, EcoActivity.class);
-                intent.putExtra("Supermercado", supermercado);
+                intent.putExtra("Supermercado", mViewHolder.txtSupermercado.getText().toString());
+                intent.putExtra("CNPJ", mViewHolder.txtCNPJ.getText().toString());
                 startActivity(intent);
             }
         });
@@ -76,6 +82,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     private static class ViewHolder{
         TextView txtSupermercado;
+        TextView txtCNPJ;
         Button btnPesquisar;
         Button btnList;
         Button btnEco;
