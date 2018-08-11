@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.com.icoddevelopers.findssp.BancoController;
 import br.com.icoddevelopers.findssp.BancoDado;
 import br.com.icoddevelopers.findssp.Constants;
 import br.com.icoddevelopers.findssp.PrevSupermercado;
@@ -48,6 +49,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
+        BancoController crud = new BancoController(getBaseContext());
+
+        crud.insereEmpresa("teste", "teste@gmail.com", "1", 1, "1", "1", 1, "1");
+        crud.insereDado(1, "Arroz", "10", "10", 10);
+        crud.insereDado(1, "Feijão", "11", "11", 11);
+        crud.insereDado(1, "Batata", "12", "12", 12);
+        crud.insereDado(1, "O que falta?", "13", "13", 13);
+        crud.insereDado(1, "test", "14", "14", 15.7f);
+        crud.insereDadoEco(1, "Arroz", "10", "10", 14);
 
     }
 

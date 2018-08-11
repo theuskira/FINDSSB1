@@ -61,20 +61,6 @@
         android:text="Cadastrar" />
 
     <TextView
-        android:id="@+id/v1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/v2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="invisible" />
-
-    <TextView
         android:id="@+id/v3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

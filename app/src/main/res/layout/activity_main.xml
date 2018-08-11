@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_vertical"
+    android:orientation="vertical"
     android:background="@drawable/findssb"
     tools:context=".views.MainActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="166dp"
+        android:layout_height="120dp"
         android:gravity="center_horizontal">
 
         <EditText
@@ -27,16 +27,23 @@
 
         <Button
             android:id="@+id/btBusca"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="48dp"
+            android:layout_height="47dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="60dp"
-            android:background="@drawable/search_528px" />
+            android:background="@drawable/icons8_search_100px_1" />
 
 
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/listMainSupermercados"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" />
 
 
 </LinearLayout>

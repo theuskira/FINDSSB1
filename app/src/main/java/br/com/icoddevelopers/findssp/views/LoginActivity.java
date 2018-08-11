@@ -29,8 +29,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.mViewholder.senha = (EditText) findViewById(R.id.loginSenha);
         this.mViewholder.entrar = (Button) findViewById(R.id.loginEntrar);
         this.mViewholder.cadastrar = (Button) findViewById(R.id.loginCadastrar);
-        this.mViewholder.v1 = (TextView) findViewById(R.id.v1);
-        this.mViewholder.v2 = (TextView) findViewById(R.id.v2);
         this.mViewholder.v3 = (TextView) findViewById(R.id.v3);
         this.mViewholder.v4 = (TextView) findViewById(R.id.v4);
 
@@ -46,18 +44,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "Campo Imcompleto", Toast.LENGTH_LONG).show();
                 }else{
                     try {
-                        String email  = mViewholder.login.getText().toString();
-                        db.verificar_login(mViewholder.login.getText().toString(), mViewholder.senha.getText().toString(), mViewholder.v1, mViewholder.v2);
                         db.verificar_empresa(mViewholder.login.getText().toString(), mViewholder.v3);
                         db.verificar_cnpj(mViewholder.login.getText().toString(), mViewholder.v4);
                         db.close();
-                        if(mViewholder.login.getText().toString().equals(mViewholder.v1.getText().toString()) && mViewholder.senha.getText().toString().equals(mViewholder.v2.getText().toString())){
+                        if(db.verificar_login(mViewholder.login.getText().toString(), mViewholder.senha.getText().toString())){
                             Toast.makeText(LoginActivity.this, "Bem Vindo " + mViewholder.v3.getText().toString(), Toast.LENGTH_LONG).show();
 
                             // SharedPreferences
                             status.storageString(Constants.NOME_EMPRESA_LOGADA, mViewholder.v3.getText().toString());
                             status.storageString(Constants.LOGADO_EMPRESA, Constants.VERDADE);
-                            status.storageString(Constants.EMAIL_EMPRESA_LOGADA, email);
+                            status.storageString(Constants.EMAIL_EMPRESA_LOGADA, mViewholder.login.getText().toString());
                             status.storageString(Constants.CNPJ_EMPRESA, mViewholder.v4.getText().toString());
 
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -91,8 +87,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         EditText senha;
         Button entrar;
         Button cadastrar;
-        TextView v1;
-        TextView v2;
         TextView v3;
         TextView v4;
     }

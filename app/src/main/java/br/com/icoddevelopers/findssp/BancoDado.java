@@ -9,12 +9,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.icoddevelopers.findssp.views.CadastroProdutosActivity;
 
 public class BancoDado extends SQLiteOpenHelper{
 
     private static final int VERSAO_BANCO = 1;
     private static final String NOME_BANCO = "banco_simples";
+    public Context ctx;
 
 
     public static String getTabelaProduto() {
@@ -80,7 +84,7 @@ public class BancoDado extends SQLiteOpenHelper{
     private static final String COLUNA_PRODUTO = "produto";
     private static final String COLUNA_CORREDOR = "corredor";
     private static final String COLUNA_PRATELEIRA = "prateleira";
-    private static final String COLUNA_PRECO = "PRECO";
+    private static final String COLUNA_PRECO = "preco";
     private static final String COLUNA_ECO = "ECO";
     private static final String COLUNA_CNPJ = "CNPJ";
     private static final String COLUNA_EMAIL = "EMAIL";
@@ -106,7 +110,7 @@ public class BancoDado extends SQLiteOpenHelper{
 
     private final String TABELA_CADASTRO_EMPRESA = "CREATE TABLE " + TABELA_SUPERMERCADO + "("
             + COLUNA_SUPERMERCADO + " VARCHAR(50) NOT NULL, "
-            + COLUNA_EMAIL + " VARCHAR(50) NOT NULL, "
+            + COLUNA_EMAIL + " VARCHAR(50) UNIQUE NOT NULL, "
             + COLUNA_RUA + " VARCHAR(50) NOT NULL, "
             + COLUNA_NUM + " INTEGER(8), "
             + COLUNA_BAIRRO + " VARCHAR(30) NOT NULL, "
@@ -116,6 +120,7 @@ public class BancoDado extends SQLiteOpenHelper{
 
     public BancoDado(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
+        this.ctx = context;
     }
 
     @Override
@@ -207,16 +212,19 @@ public class BancoDado extends SQLiteOpenHelper{
         }
     }
 
-    public void verificar_login(String login, String senha, TextView v1, TextView v2){
+    public Boolean verificar_login(String login, String senha){
+        boolean have = false;
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT " + COLUNA_EMAIL +", " + COLUNA_SENHA +" FROM " + TABELA_SUPERMERCADO + " WHERE "
                 + COLUNA_EMAIL + " = '" + login + "' and " + COLUNA_SENHA + " = '"
                 + senha + "';", null);
-        v1.setText("");
-        v2.setText("");
+
         while (cursor.moveToNext()){
-            v1.append(cursor.getString(0));
-            v2.append(cursor.getString(1));
+            if(login.equals(cursor.getString(0)) && senha.equals(cursor.getString(1))){
+                have = true;
+                break;
+            }
         }
+        return  have;
     }
 
     public void verificar_cnpj(String email, TextView cnpj){
@@ -264,25 +272,76 @@ public class BancoDado extends SQLiteOpenHelper{
         }
     }
 
-    public void insereProduto(int cnpj, String produto, String corredor, String prateleira, float preco){
+    public boolean verificarEmail(String email){
+        boolean have = false;
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT "
+                + COLUNA_EMAIL + " FROM "
+                + TABELA_SUPERMERCADO + " WHERE "
+                + COLUNA_EMAIL + " = '"
+                + email + "';", null);
 
-        this.getReadableDatabase().rawQuery("INSERT INTO " + TABELA_PRODUTO + " VALUES ('"
-                + produto + "', '"
-                + corredor + "', '"
-                + prateleira + "', "
-                + preco + ", 0, "
-                + cnpj + ");", null);
+        while (cursor.moveToNext()){
+            if(email.equals(cursor.getString(0))){
+                have = true;
+                break;
+            }
+        }
+        return  have;
     }
 
+    public boolean verificarCNPJ(Long cnpj){
+        boolean have = false;
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT "
+                + COLUNA_CNPJ + " FROM "
+                + TABELA_SUPERMERCADO + " WHERE "
+                + COLUNA_CNPJ + " = "
+                + cnpj + ";", null);
 
-    public void insereProdutoEco(int cnpj, String produto, String corredor, String prateleira, float preco){
-
-        this.getReadableDatabase().rawQuery("INSERT INTO " + TABELA_PRODUTO + " VALUES ("
-                + produto + ", "
-                + corredor + ", "
-                + prateleira + ", "
-                + preco + ", 1, "
-                + cnpj + ");", null);
+        while (cursor.moveToNext()){
+            if(cnpj == cursor.getLong(cursor.getColumnIndex(COLUNA_CNPJ))){
+                have = true;
+                break;
+            }
+        }
+        return have;
     }
 
+    public ArrayList<ProdutosSupermercado> listAllProducts(int cnpj){
+        ArrayList<ProdutosSupermercado> allProdutos = new ArrayList<>();
+        String sql = "SELECT * FROM " + TABELA_PRODUTO
+                + " WHERE " + COLUNA_CNPJ + " = " + cnpj + " AND " + COLUNA_ECO + " = 0;";
+
+        Cursor cursor = getReadableDatabase().rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            ProdutosSupermercado produtoAtual = new ProdutosSupermercado();
+            produtoAtual.setProduto(cursor.getString(cursor.getColumnIndex(COLUNA_PRODUTO)));
+            produtoAtual.setCorredor(cursor.getString(cursor.getColumnIndex(COLUNA_CORREDOR)));
+            produtoAtual.setPrateleira(cursor.getString(cursor.getColumnIndex(COLUNA_PRATELEIRA)));
+            produtoAtual.setPreco(cursor.getString(cursor.getColumnIndex(COLUNA_PRECO)));
+
+            allProdutos.add(produtoAtual);
+        }
+
+        return allProdutos;
+    }
+
+    public ArrayList<ProdutosSupermercado> listProducts(int cnpj, String produto){
+        ArrayList<ProdutosSupermercado> allProdutos = new ArrayList();
+        String sql = "SELECT * FROM " + TABELA_PRODUTO
+                + " WHERE " + COLUNA_CNPJ + " = " + cnpj +" AND "+COLUNA_PRODUTO+" LIKE '%"+produto+"%'"+ " AND " + COLUNA_ECO + " = 0;";
+
+        Cursor cursor = this.getReadableDatabase().rawQuery(sql, null);
+
+        while (cursor.moveToNext()){
+            ProdutosSupermercado produtoAtual = new ProdutosSupermercado();
+            produtoAtual.setProduto(cursor.getString(cursor.getColumnIndex(COLUNA_PRODUTO)));
+            produtoAtual.setCorredor(cursor.getString(cursor.getColumnIndex(COLUNA_CORREDOR)));
+            produtoAtual.setPrateleira(cursor.getString(cursor.getColumnIndex(COLUNA_PRATELEIRA)));
+            produtoAtual.setPreco(cursor.getString(cursor.getColumnIndex(COLUNA_PRECO)));
+
+            allProdutos.add(produtoAtual);
+        }
+
+        return allProdutos;
+    }
 }

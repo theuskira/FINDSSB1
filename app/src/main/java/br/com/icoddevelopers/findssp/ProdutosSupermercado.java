@@ -6,16 +6,22 @@ public class ProdutosSupermercado {
     String produto;
     String corredor;
     String prateleira;
+    String preco;
+    public int quantidade = 1;
 
     public ProdutosSupermercado(){
 
     }
+    public void incrementar(){
+        quantidade++;
+    }
 
-    public ProdutosSupermercado(String _supermercado, String _produto, String _corredor, String _prateleira){
+    public ProdutosSupermercado(String _supermercado, String _produto, String _corredor, String _prateleira, String _preco){
         this.supermercado = _supermercado;
         this.produto = _produto;
         this.corredor = _corredor;
         this.prateleira = _prateleira;
+        this.preco = _preco;
     }
 
     public String getSupermercado() {
@@ -48,5 +54,17 @@ public class ProdutosSupermercado {
 
     public void setPrateleira(String prateleira) {
         this.prateleira = prateleira;
+    }
+
+    public String getPreco() {
+        return preco;
+    }
+
+    public void setPreco(String preco) {
+        this.preco = preco;
+    }
+
+    public String toString(){
+        return this.produto;
     }
 }

@@ -15,4 +15,6 @@
     <string name="empresa">Empresa</string>
     <string name="cadastrar_produto">Cadastrar Produto</string>
     <string name="title_activity_teste">Teste</string>
+    <string name="Moeda">R$</string>
+    <string name="Quantidade">Quantidade</string>
 </resources>

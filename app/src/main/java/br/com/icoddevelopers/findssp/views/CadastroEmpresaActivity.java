@@ -72,27 +72,33 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
             if(supermercado.equals("") || email.equals("") || rua.equals("") || num.equals("") || bairro.equals("") || cnpj.equals("")){
                 Toast.makeText(CadastroEmpresaActivity.this, "Campos Obrigatorios Faltando!", Toast.LENGTH_LONG).show();
             }else{
-                try {
+                if(db.verificarEmail(email)){
+                    Toast.makeText(CadastroEmpresaActivity.this, "E-Mail ja esta sendo usado!", Toast.LENGTH_LONG).show();
+                }else if(db.verificarCNPJ(Long.parseLong(cnpj))){
+                    Toast.makeText(CadastroEmpresaActivity.this, "CNPJ ja esta sendo usado!", Toast.LENGTH_LONG).show();
+                }else {
+                    try {
 
-                    BancoController crud = new BancoController(getBaseContext());
+                        BancoController crud = new BancoController(getBaseContext());
 
-                    crud.insereEmpresa(supermercado, email, rua, Integer.parseInt(num), bairro, cidade, Integer.parseInt(cnpj), senha);
+                        crud.insereEmpresa(supermercado, email, rua, Integer.parseInt(num), bairro, cidade, Integer.parseInt(cnpj), senha);
 
-                    mViewHolder.nomeEmpresa.setText(null);
-                    mViewHolder.emailEmpresa.setText(null);
-                    mViewHolder.ruaEmpresa.setText(null);
-                    mViewHolder.numEmpresa.setText(null);
-                    mViewHolder.bairroEmpresa.setText(null);
-                    mViewHolder.cidadeEmpresa.setText(null);
-                    mViewHolder.cnpjEmpresa.setText(null);
-                    mViewHolder.senhaEmpresa.setText(null);
+                        mViewHolder.nomeEmpresa.setText(null);
+                        mViewHolder.emailEmpresa.setText(null);
+                        mViewHolder.ruaEmpresa.setText(null);
+                        mViewHolder.numEmpresa.setText(null);
+                        mViewHolder.bairroEmpresa.setText(null);
+                        mViewHolder.cidadeEmpresa.setText(null);
+                        mViewHolder.cnpjEmpresa.setText(null);
+                        mViewHolder.senhaEmpresa.setText(null);
 
-                    Toast.makeText(this, "Empresa Cadastrada!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Empresa Cadastrada!", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                }catch (Exception e){
-                    Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(this, LoginActivity.class);
+                        startActivity(intent);
+                    }catch (Exception e){
+                        Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         }
